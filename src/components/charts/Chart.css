@@ -1,0 +1,13 @@
+.chart {
+  width: 100% !important;
+}
+
+.chart .svg-container {
+  width: 100% !important;
+}
+
+.chart .svg-container .main-svg{
+  border-radius: 5px;
+  width: 100% !important;
+  height: 100% !important;
+}
