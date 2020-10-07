@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Plot from 'react-plotly.js';
 
 import './Chart.css'
@@ -8,6 +8,7 @@ const jsonY = require('json-loader../../../dataY.json')
 const jsonOriginal = require('json-loader../../../dataOriginal.json')
 
 function Chart({ className, title, original }) {
+  console.log("Renderizou")
   const chartData = [
     {
       x: jsonX,
@@ -54,4 +55,4 @@ function Chart({ className, title, original }) {
   )
 }
 
-export default Chart
+export default memo(Chart)

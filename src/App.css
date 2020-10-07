@@ -9,22 +9,116 @@
 
 .dashboard-app .app .grid-layout{
   display: grid;
-  grid-template-areas: "kp ki mp ts"
-                       "original original controller controller" ;
+  margin-right: 15px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-areas: "overshoot error accomodation-value accomodation-time"
+                       "controller controller values values" 
+                       "original original reservatory reservatory";
   grid-gap: 15px;
 }
 
-.dashboard-app .app .grid-layout .kp-container{grid-area: kp}
-.dashboard-app .app .grid-layout .ki-container{grid-area: ki}
-.dashboard-app .app .grid-layout .mp-container{grid-area: mp}
-.dashboard-app .app .grid-layout .ts-container{grid-area: ts}
+.dashboard-app .app .grid-layout .overshoot-container{grid-area: overshoot}
+.dashboard-app .app .grid-layout .error-container{grid-area: error}
+.dashboard-app .app .grid-layout .accomodation-value-container{grid-area: accomodation-value}
+.dashboard-app .app .grid-layout .accomodation-time-container{grid-area: accomodation-time}
 
-.dashboard-app .app .grid-layout .kp-container, .dashboard-app .app .grid-layout .ki-container,
-.dashboard-app .app .grid-layout .mp-container, .dashboard-app .app .grid-layout .ts-container{
+.dashboard-app .app .grid-layout .container{
   background-color: #FFFFFF;
   border-radius: 5px;
-  padding: 10px;
+  padding: 30px;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.02);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-app .app .grid-layout .container .icon{
+  min-width: 60px;
+  min-height: 60px;
+  border-radius: 60px;
+  background-color: #EFF4FC;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.16);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 25px;
+  font-size: 20px;
+  color: #4A6D7C;
+}
+
+.dashboard-app .app .grid-layout .container .title p{
+  font-size: 30px;
+  color: #002500;
+  font-weight: bold;
+  margin: 0;
+}
+
+.dashboard-app .app .grid-layout .container .title h2{
+  font-size: 20px;
+  color: #4A6D7C;
+  font-weight: 550;
+  margin: 0;
+}
+
+.dashboard-app .app .grid-layout .values-container{
+  grid-area: values;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.dashboard-app .app .grid-layout .values-container h2{
+  font-size: 20px;
+  color: #4A6D7C;
+  font-weight: bold;
+  margin-top: 0;
+}
+
+.dashboard-app .app .grid-layout .values-container form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-app .app .grid-layout .values-container form .input-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-app .app .grid-layout .values-container form .input-container label{
+  font-size: 17px;
+  color: #4A6D7C;
+}
+
+.dashboard-app .app .grid-layout .values-container form .input-container input{
+  background-color: #EFF4FC;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  color: #4A6D7C;
+  outline: none;
+  margin: 10px 0 20px 0;
+}
+.dashboard-app .app .grid-layout .values-container form .input-container input:focus{
+  border: 2px solid #4A6D7C !important;
+  box-shadow: 0 0 5px  #4A6D7C;
+}
+
+.dashboard-app .app .grid-layout .values-container form button{
+  background-color:  #4A6D7C;
+  color: #FFFFFF;
+  border: none;
+  padding: 10px;
+  width: 20%;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s;
+  align-self: flex-end;
+}
+.dashboard-app .app .grid-layout .values-container form button:hover{
+  filter: brightness(80%);
 }
 
 .dashboard-app .app .grid-layout .value{
@@ -77,6 +171,10 @@ button:hover{
   filter: brightness(80%);
 }
 
+.dashboard-app .app .grid-layout .reservatory-container{
+  grid-area: reservatory;
+}
+
 .dashboard-app .app .grid-layout .original-chart{
   grid-area: original;
 }
@@ -89,9 +187,9 @@ button:hover{
   font-size: 25px;
   color: #4A6D7C;
 }
-
+/* 
 .dashboard-app h2{
   font-size: 15px;
   color: #4A6D7C;
   margin: 0;
-}
+} */
