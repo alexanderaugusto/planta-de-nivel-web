@@ -174,6 +174,26 @@ button:hover{
 .dashboard-app .app .grid-layout .reservatory-container{
   grid-area: reservatory;
 }
+.dashboard-app .app .grid-layout .reservatory-container .options-buttons{
+  display: grid;  
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas: 
+                        "button1 button1" 
+                        "button2 button2";
+  grid-gap: 5px;                          
+}
+
+.dashboard-app .app .grid-layout .reservatory-container button{
+  background-color:  #4A6D7C;
+  color: #FFFFFF;
+  border: none;
+  padding: 5px 10px;    
+  margin-bottom: 5px;  
+  border-radius: 5px; 
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s;
+}
 
 .dashboard-app .app .grid-layout .original-chart{
   grid-area: original;
@@ -193,3 +213,6 @@ button:hover{
   color: #4A6D7C;
   margin: 0;
 } */
+
+
+

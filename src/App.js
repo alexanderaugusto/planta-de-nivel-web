@@ -5,6 +5,7 @@ import './App.css'
 function App() {
   const [kp, setKp] = useState(48)
   const [ki, setKi] = useState(20)
+  const [sp, setSp] = useState(0.2)
   const [mp, setMp] = useState(0.2)
   const [ts, setTs] = useState(70)
 
@@ -61,7 +62,7 @@ function App() {
               e.preventDefault()
               send({ kp, ki, mp, ts })
             }}>
-              <div className="input-container">
+              {/* <div className="input-container">
                 <label>Ganho proporcional</label>
                 <input
                   type="number"
@@ -77,6 +78,15 @@ function App() {
                   placeholder="Novo valor..."
                   value={ki}
                   onChange={(e) => setKi(e.target.value)}
+                />
+              </div> */}
+              <div className="input-container">
+                <label>Amplitude degrau unitário</label>
+                <input
+                  type="number"
+                  placeholder="Novo valor..."
+                  value={sp}
+                  onChange={(e) => setSp(e.target.value)}
                 />
               </div>
               <div className="input-container">
@@ -103,65 +113,32 @@ function App() {
             </form>
           </div>
           <div className="cotainer reservatory-container">
+            <div className='options-buttons'>
+              <button type="button"> Malha Aberta </button>
+              <button type="button" > Malha Fechada </button>
+              <button type="button"> Malha Fechada com ganho </button>
+              <button type="button"> Comparativo </button>
+            </div>
+
+            <Chart
+              className="answers-chart"
+              title="Gráfico - Malha Aberta"
+            />
 
           </div>
-          {/* <div className="kp-container">
-            <h2>Ganho proporcional - KP</h2>
-            <div className="value">
-              <p>20</p>
-              <div className="input-container">
-                <input placeholder="Novo valor..." />
-                <button>
-                  Enviar
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="ki-container">
-            <h2>Ganho Integral - KI</h2>
-            <div className="value">
-              <p>48</p>
-              <div className="input-container">
-                <input placeholder="Novo valor..." />
-                <button>
-                  Enviar
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="mp-container">
-            <h2>Overshoot Máximo - MP</h2>
-            <div className="value">
-              <p>20%</p>
-              <div className="input-container">
-                <input placeholder="Novo valor..." />
-                <button>
-                  Enviar
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="ts-container">
-            <h2>Tempo de Acomodação - TS</h2>
-            <div className="value">
-              <p>70s</p>
-              <div className="input-container">
-                <input placeholder="Novo valor..." />
-                <button>
-                  Enviar
-                </button>
-              </div>
-            </div>
-          </div> */}
-          <Chart
-            className="original-chart"
-            title="Gráfico - Original"
-            original={true}
-          />
+
           <Chart
             className="controller-chart"
             title="Gráfico - Controlador PI"
           />
+
+          <Chart
+            className="original-chart"
+            title="Gráfico - Original"
+            original={true}
+            buttonOptions={true}
+          />
+
         </div>
       </div>
     </div>

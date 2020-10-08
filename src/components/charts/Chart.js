@@ -43,7 +43,7 @@ function Chart({ className, title, original }) {
 
   return (
     <>
-      <div className={className + " chart"}>
+      <div className={className + " chart"}>        
         <Plot
           data={chartData}
           layout={layout}
