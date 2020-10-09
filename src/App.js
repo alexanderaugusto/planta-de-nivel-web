@@ -7,7 +7,7 @@ import './App.css'
 
 function App() {
   const [sp, setSp] = useState(1)
-  const [mp, setMp] = useState(0.2)
+  const [mp, setMp] = useState(0.1)
   const [ts, setTs] = useState(70)
   const [answer, setAnswer] = useState({
     malhaAberta: {},
@@ -23,7 +23,7 @@ function App() {
   const getInitialData = useCallback(async () => {
     const data = {
       sp: 1,
-      overshoot: 0.2,
+      overshoot: 0.1,
       ts: 70
     }
 
