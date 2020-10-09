@@ -156,6 +156,10 @@
   filter: brightness(80%);
 }
 
+.dashboard-app .app .grid-layout .answers-container .option-selected{
+  filter: brightness(50%);
+}
+
 .dashboard-app .app .grid-layout .comparative-container{
   grid-area: comparative;
   background-color: #FFFFFF;

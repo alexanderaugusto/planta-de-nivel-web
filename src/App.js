@@ -17,7 +17,7 @@ function App() {
     original: {},
     originalMinimoQuadrado: {}
   })
-  const [selected, setSelected] = useState("malhaAberta")
+  const [selected, setSelected] = useState("malhaFechadaControlador")
   const [loading, setLoading] = useState(false)
 
   const getInitialData = useCallback(async () => {
@@ -325,10 +325,30 @@ function App() {
 
           <div className="answers-container">
             <div className='options-buttons'>
-              <button type="button" onClick={() => setSelected("malhaAberta")}> Malha aberta </button>
-              <button type="button" onClick={() => setSelected("malhaFechada")}> Malha fechada </button>
-              <button type="button" onClick={() => setSelected("malhaFechadaGanhoProporcional")}> Malha fechada com ganho </button>
-              <button type="button" onClick={() => setSelected("malhaFechadaControlador")}> Malha fechada com controlador </button>
+              <button
+                type="button"
+                className={selected === "malhaAberta" ? "option-selected" : ""}
+                onClick={() => setSelected("malhaAberta")}>
+                Malha aberta
+              </button>
+              <button
+                type="button"
+                className={selected === "malhaFechada" ? "option-selected" : ""}
+                onClick={() => setSelected("malhaFechada")}>
+                Malha fechada
+              </button>
+              <button
+                type="button"
+                className={selected === "malhaFechadaGanhoProporcional" ? "option-selected" : ""}
+                onClick={() => setSelected("malhaFechadaGanhoProporcional")}>
+                Malha fechada com ganho
+               </button>
+              <button
+                type="button"
+                className={selected === "malhaFechadaControlador" ? "option-selected" : ""}
+                onClick={() => setSelected("malhaFechadaControlador")}>
+                Malha fechada com controlador
+              </button>
             </div>
 
             {useMemo(() => {
