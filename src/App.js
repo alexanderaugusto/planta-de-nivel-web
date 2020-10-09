@@ -3,8 +3,6 @@ import { Chart } from './components'
 import './App.css'
 
 function App() {
-  const [kp, setKp] = useState(48)
-  const [ki, setKi] = useState(20)
   const [sp, setSp] = useState(0.2)
   const [mp, setMp] = useState(0.2)
   const [ts, setTs] = useState(70)
@@ -55,31 +53,14 @@ function App() {
               <h2>Tempo de acomodação</h2>
             </div>
           </div>
+
           <div className="container values-container">
             <h2>Valores escolhidos</h2>
 
             <form onSubmit={(e) => {
               e.preventDefault()
-              send({ kp, ki, mp, ts })
+              send({ mp, ts })
             }}>
-              {/* <div className="input-container">
-                <label>Ganho proporcional</label>
-                <input
-                  type="number"
-                  placeholder="Novo valor..."
-                  value={kp}
-                  onChange={(e) => setKp(e.target.value)}
-                />
-              </div>
-              <div className="input-container">
-                <label>Ganho integral</label>
-                <input
-                  type="number"
-                  placeholder="Novo valor..."
-                  value={ki}
-                  onChange={(e) => setKi(e.target.value)}
-                />
-              </div> */}
               <div className="input-container">
                 <label>Amplitude degrau unitário</label>
                 <input
@@ -99,7 +80,7 @@ function App() {
                 />
               </div>
               <div className="input-container">
-                <label>Tempo de acomodação recomendado</label>
+                <label>Tempo de acomodação esperado</label>
                 <input
                   type="number"
                   placeholder="Novo valor..."
@@ -109,28 +90,27 @@ function App() {
               </div>
               <button type="submit">
                 Enviar
-            </button>
+              </button>
             </form>
           </div>
-          <div className="cotainer reservatory-container">
+
+          <div className="answers-container">
             <div className='options-buttons'>
               <button type="button"> Malha Aberta </button>
-              <button type="button" > Malha Fechada </button>
+              <button type="button"> Malha Fechada </button>
               <button type="button"> Malha Fechada com ganho </button>
               <button type="button"> Comparativo </button>
             </div>
 
             <Chart
               className="answers-chart"
-              title="Gráfico - Malha Aberta"
+              title="Gráfico - Controlador PI"
             />
-
           </div>
 
-          <Chart
-            className="controller-chart"
-            title="Gráfico - Controlador PI"
-          />
+          <div className="cotainer reservatory-container">
+
+          </div>
 
           <Chart
             className="original-chart"
@@ -138,7 +118,6 @@ function App() {
             original={true}
             buttonOptions={true}
           />
-
         </div>
       </div>
     </div>

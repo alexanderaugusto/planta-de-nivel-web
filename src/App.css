@@ -3,6 +3,12 @@
   height: 100vh;
 }
 
+.dashboard-app h1{
+  font-size: 25px;
+  color: #4A6D7C;
+}
+
+
 .dashboard-app .app{
   padding: 20px;
 }
@@ -12,7 +18,7 @@
   margin-right: 15px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-template-areas: "overshoot error accomodation-value accomodation-time"
-                       "controller controller values values" 
+                       "answer answer values values" 
                        "original original reservatory reservatory";
   grid-gap: 15px;
 }
@@ -121,69 +127,21 @@
   filter: brightness(80%);
 }
 
-.dashboard-app .app .grid-layout .value{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.dashboard-app .app .grid-layout .value p{
-  font-size: 50px;
-  color: #002500;
-  font-weight: bold;
-}
-
-.dashboard-app .app .grid-layout .value .input-container{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.dashboard-app .app .grid-layout .value .input-container input{
-  background-color: #EFF4FC;
-  border: none;
-  padding: 10px;
+.dashboard-app .app .grid-layout .answers-container{
+  grid-area: answer;
+  display: initial;
+  background-color: #FFFFFF;
   border-radius: 5px;
-  width: 100%;
-  color: #4A6D7C;
-  outline: none;
-}
-.dashboard-app .app .grid-layout .value .input-container input:focus{
-  border: 2px solid #4A6D7C !important;
-  box-shadow: 0 0 5px  #4A6D7C;
 }
 
-.dashboard-app .app .grid-layout .value .input-container button{
-  background-color:  #4A6D7C;
-  color: #FFFFFF;
-  border: none;
-  padding: 10px;
-  width: 120px;
-  border-radius: 5px;
-  margin-left: 10px;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.3s;
-}
-button:hover{
-  filter: brightness(80%);
-}
-
-.dashboard-app .app .grid-layout .reservatory-container{
-  grid-area: reservatory;
-}
-.dashboard-app .app .grid-layout .reservatory-container .options-buttons{
+.dashboard-app .app .grid-layout .answers-container .options-buttons{
   display: grid;  
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-areas: 
-                        "button1 button1" 
-                        "button2 button2";
-  grid-gap: 5px;                          
+  grid-gap: 10px;    
+  padding: 10px;
 }
 
-.dashboard-app .app .grid-layout .reservatory-container button{
+.dashboard-app .app .grid-layout .answers-container button{
   background-color:  #4A6D7C;
   color: #FFFFFF;
   border: none;
@@ -194,25 +152,16 @@ button:hover{
   outline: none;
   transition: all 0.3s;
 }
+.dashboard-app .app .grid-layout .answers-container button:hover{
+  filter: brightness(80%);
+}
+
+.dashboard-app .app .grid-layout .reservatory-container{
+  grid-area: reservatory;
+}
 
 .dashboard-app .app .grid-layout .original-chart{
   grid-area: original;
 }
-
-.dashboard-app .app .grid-layout .controller-chart{
-  grid-area: controller;
-}
-
-.dashboard-app h1{
-  font-size: 25px;
-  color: #4A6D7C;
-}
-/* 
-.dashboard-app h2{
-  font-size: 15px;
-  color: #4A6D7C;
-  margin: 0;
-} */
-
 
 
