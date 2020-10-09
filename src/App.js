@@ -199,7 +199,7 @@ function App() {
     return (
       <Chart
         className="answers-chart"
-        title="Original com Mínimos Quadrados"
+        title="Comparativo"
         data={data}
       />
     )
