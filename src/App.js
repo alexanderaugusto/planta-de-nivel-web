@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
-import { Chart } from './components'
+import { Chart, PageLoading } from './components'
 import { formatNumber } from './utils/util'
 import api from './services/api'
 
@@ -9,7 +9,7 @@ function App() {
   const [sp, setSp] = useState(1)
   const [mp, setMp] = useState(0.2)
   const [ts, setTs] = useState(70)
-  const [data, setData] = useState({
+  const [answer, setAnswer] = useState({
     malhaAberta: {},
     malhaFechada: {},
     malhaFechadaGanhoProporcional: {},
@@ -18,6 +18,7 @@ function App() {
     originalMinimoQuadrado: {}
   })
   const [selected, setSelected] = useState("malhaAberta")
+  const [loading, setLoading] = useState(false)
 
   const getInitialData = useCallback(async () => {
     const data = {
@@ -26,36 +27,44 @@ function App() {
       ts: 70
     }
 
+    setLoading(true)
+
     await api.post('/', data)
       .then((res) => {
-        setData(res.data)
+        setAnswer(res.data)
       })
       .catch((err) => {
         console.log(err)
       })
+
+    setLoading(false)
   }, [])
 
   const getData = async () => {
     const data = {
-      sp,
-      overshoot: mp,
-      ts
+      sp: parseFloat(sp),
+      overshoot: parseFloat(mp),
+      ts: parseFloat(ts)
     }
+
+    setLoading(true)
 
     await api.post('/', data)
       .then((res) => {
-        setData(res.data)
+        setAnswer(res.data)
       })
       .catch((err) => {
         console.log(err)
       })
+
+    setLoading(false)
   }
 
   const plotMalhaAberta = useCallback(() => {
-    const chartData = [
+    const data = [
       {
-        x: data.malhaAberta.valoresX,
-        y: data.malhaAberta.valoresY,
+        x: answer.malhaAberta.valoresX,
+        y: answer.malhaAberta.valoresY,
         type: 'scatter',
         mode: 'lines',
         marker: { color: 'red' },
@@ -67,16 +76,16 @@ function App() {
       <Chart
         className="answers-chart"
         title="Malha Aberta"
-        data={chartData}
+        data={data}
       />
     )
-  }, [data.malhaAberta])
+  }, [answer.malhaAberta])
 
   const plotMalhaFechada = useCallback(() => {
-    const chartData = [
+    const data = [
       {
-        x: data.malhaFechada.valoresX,
-        y: data.malhaFechada.valoresY,
+        x: answer.malhaFechada.valoresX,
+        y: answer.malhaFechada.valoresY,
         type: 'scatter',
         mode: 'lines',
         marker: { color: 'red' },
@@ -88,24 +97,24 @@ function App() {
       <Chart
         className="answers-chart"
         title="Malha Fechada"
-        data={chartData}
+        data={data}
       />
     )
-  }, [data.malhaFechada])
+  }, [answer.malhaFechada])
 
   const plotMalhaFechadaGanhoProporcional = useCallback(() => {
-    const chartData = [
+    const data = [
       {
-        x: data.malhaFechadaGanhoProporcional.valoresX,
-        y: data.malhaFechadaGanhoProporcional.valoresY,
+        x: answer.malhaFechadaGanhoProporcional.valoresX,
+        y: answer.malhaFechadaGanhoProporcional.valoresY,
         type: 'scatter',
         mode: 'lines',
         marker: { color: 'red' },
         name: 'Ganho Proporcional',
       },
-      {
-        x: [data.malhaFechadaGanhoProporcional.overshootX],
-        y: [data.malhaFechadaGanhoProporcional.overshootY],
+      !answer.malhaFechadaGanhoProporcional.overshoot ? {} : {
+        x: [answer.malhaFechadaGanhoProporcional.overshootX],
+        y: [answer.malhaFechadaGanhoProporcional.overshootY],
         type: 'scatter',
         mode: 'markers',
         marker: { size: 10, color: 'blue' },
@@ -117,24 +126,24 @@ function App() {
       <Chart
         className="answers-chart"
         title="Malha Fechada com Ganho Proporcional"
-        data={chartData}
+        data={data}
       />
     )
-  }, [data.malhaFechadaGanhoProporcional])
+  }, [answer.malhaFechadaGanhoProporcional])
 
   const plotMalhaFechadaControlador = useCallback(() => {
-    const chartData = [
+    const data = [
       {
-        x: data.malhaFechadaControlador.valoresX,
-        y: data.malhaFechadaControlador.valoresY,
+        x: answer.malhaFechadaControlador.valoresX,
+        y: answer.malhaFechadaControlador.valoresY,
         type: 'scatter',
         mode: 'lines',
         marker: { color: 'red' },
         name: 'Controlador PI',
       },
       {
-        x: [data.malhaFechadaControlador.overshootX],
-        y: [data.malhaFechadaControlador.overshootY],
+        x: [answer.malhaFechadaControlador.overshootX],
+        y: [answer.malhaFechadaControlador.overshootY],
         type: 'scatter',
         mode: 'markers',
         marker: { size: 10, color: 'blue' },
@@ -146,24 +155,69 @@ function App() {
       <Chart
         className="answers-chart"
         title="Malha Fechada com Controlador PI"
-        data={chartData}
+        data={data}
       />
     )
-  }, [data.malhaFechadaControlador])
+  }, [answer.malhaFechadaControlador])
+
+  const plotComparative = useCallback(() => {
+    const data = [
+      {
+        x: answer.malhaAberta.valoresX,
+        y: answer.malhaAberta.valoresY,
+        type: 'scatter',
+        mode: 'lines',
+        marker: { color: 'red' },
+        name: 'Malha Aberta',
+      },
+      {
+        x: answer.malhaFechada.valoresX,
+        y: answer.malhaFechada.valoresY,
+        type: 'scatter',
+        mode: 'lines',
+        marker: { color: 'green' },
+        name: 'Malha Fechada',
+      },
+      {
+        x: answer.malhaFechadaGanhoProporcional.valoresX,
+        y: answer.malhaFechadaGanhoProporcional.valoresY,
+        type: 'scatter',
+        mode: 'lines',
+        marker: { color: 'blue' },
+        name: 'Ganho Proporcional',
+      },
+      {
+        x: answer.malhaFechadaControlador.valoresX,
+        y: answer.malhaFechadaControlador.valoresY,
+        type: 'scatter',
+        mode: 'lines',
+        marker: { color: 'purple' },
+        name: 'Controlador PI',
+      }
+    ]
+
+    return (
+      <Chart
+        className="answers-chart"
+        title="Original com Mínimos Quadrados"
+        data={data}
+      />
+    )
+  }, [answer.malhaAberta, answer.malhaFechada, answer.malhaFechadaControlador, answer.malhaFechadaGanhoProporcional])
 
   const plotOriginal = useCallback(() => {
-    const chartData = [
+    const data = [
       {
-        x: data.original.valoresX,
-        y: data.original.valoresY,
+        x: answer.original.valoresX,
+        y: answer.original.valoresY,
         type: 'scatter',
         mode: 'lines',
         marker: { color: 'red' },
         name: 'Original',
       },
       {
-        x: data.originalMinimoQuadrado.valoresX,
-        y: data.originalMinimoQuadrado.valoresY,
+        x: answer.originalMinimoQuadrado.valoresX,
+        y: answer.originalMinimoQuadrado.valoresY,
         type: 'scatter',
         mode: 'lines',
         marker: { color: 'green' },
@@ -175,19 +229,19 @@ function App() {
       <Chart
         className="answers-chart"
         title="Original com Mínimos Quadrados"
-        data={chartData}
+        data={data}
       />
     )
-  }, [data.original, data.originalMinimoQuadrado])
+  }, [answer.original, answer.originalMinimoQuadrado])
 
   useEffect(() => {
     getInitialData()
   }, [getInitialData])
 
-  console.log(data)
-
   return (
     <div className="dashboard-app">
+      <PageLoading loading={loading} />
+
       <div className="app">
         <h1>Overview</h1>
 
@@ -197,7 +251,7 @@ function App() {
               <i className="fab fa-think-peaks" />
             </div>
             <div className="title">
-              <p>{formatNumber(data.malhaFechadaControlador.overshoot) + "%"}</p>
+              <p>{formatNumber(answer.malhaFechadaControlador.overshoot) + "%"}</p>
               <h2>Overshoot</h2>
             </div>
           </div>
@@ -206,7 +260,7 @@ function App() {
               <i className="fas fa-exclamation-circle" />
             </div>
             <div className="title">
-              <p>{formatNumber(data.malhaFechadaControlador.erro)}</p>
+              <p>{formatNumber(answer.malhaFechadaControlador.erro)}</p>
               <h2>Erro em regime permanente</h2>
             </div>
           </div>
@@ -215,7 +269,7 @@ function App() {
               <i className="fas fa-chart-line" />
             </div>
             <div className="title">
-              <p>{formatNumber(data.malhaFechadaControlador.valorAcomodacao)}</p>
+              <p>{formatNumber(answer.malhaFechadaControlador.valorAcomodacao)}</p>
               <h2>Valor de acomodação</h2>
             </div>
           </div>
@@ -224,7 +278,7 @@ function App() {
               <i className="fas fa-clock" />
             </div>
             <div className="title">
-              <p>{formatNumber(data.malhaFechadaControlador.tempoAcomodacao) + "s"}</p>
+              <p>{formatNumber(answer.malhaFechadaControlador.tempoAcomodacao) + "s"}</p>
               <h2>Tempo de acomodação</h2>
             </div>
           </div>
@@ -289,8 +343,8 @@ function App() {
             }, [plotMalhaAberta, plotMalhaFechada, plotMalhaFechadaGanhoProporcional, plotMalhaFechadaControlador, selected])}
           </div>
 
-          <div className="cotainer reservatory-container">
-
+          <div className="comparative-container">
+            {useMemo(() => plotComparative(), [plotComparative])}
           </div>
 
           <div className="original-container">
