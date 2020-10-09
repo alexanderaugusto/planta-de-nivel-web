@@ -4,8 +4,6 @@ import Plot from 'react-plotly.js'
 import './Chart.css'
 
 function Chart({ className, title, data }) {
-  console.log("Renderizou")
-
   const layout = {
     title: {
       text: title
