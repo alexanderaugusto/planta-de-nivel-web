@@ -282,6 +282,42 @@ function App() {
               <h2>Tempo de acomodação</h2>
             </div>
           </div>
+          <div className="container a1-container">
+            <div className="icon">
+              <p>a1</p>
+            </div>
+            <div className="title">
+              <p>{formatNumber(answer.malhaFechadaControlador.a1, 6)}</p>
+              <h2>Coeficiente a1</h2>
+            </div>
+          </div>
+          <div className="container b1-container">
+            <div className="icon">
+              <p>b1</p>
+            </div>
+            <div className="title">
+              <p>{formatNumber(answer.malhaFechadaControlador.b1, 6)}</p>
+              <h2>Coeficiente b1</h2>
+            </div>
+          </div>
+          <div className="container kp-container">
+            <div className="icon">
+              <p>kp</p>
+            </div>
+            <div className="title">
+              <p>{formatNumber(answer.malhaFechadaControlador.kpRecomendado)}</p>
+              <h2>Ganho proporcional</h2>
+            </div>
+          </div>
+          <div className="container ki-container">
+            <div className="icon">
+              <p>ki</p>
+            </div>
+            <div className="title">
+              <p>{formatNumber(answer.malhaFechadaControlador.kiRecomendado)}</p>
+              <h2>Ganho integral</h2>
+            </div>
+          </div>
 
           <div className="container values-container">
             <h2>Valores escolhidos</h2>
