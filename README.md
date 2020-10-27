@@ -2,7 +2,7 @@
 
 ## Sobre o projeto
 
-Projeto desenvolvido para o o projeto de Planta de Nível da disciplina de Sistemas Embarcados do Inatel. 
+Projeto desenvolvido para o trabalho sobre a Planta de Nível com Controlador PID da disciplina de Sistemas Embarcados do Inatel. 
 
 ---
 
